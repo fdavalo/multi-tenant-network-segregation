@@ -71,6 +71,6 @@
 
    Pour finir, je vous joins un certain nombre de slides qui donnent plus de précisions sur les fonctionnalités des CNI dans Openshift.
 
-https://docs.google.com/presentation/d/11LHKQE7y8h5eXWpITmdHUqPxJv-SMjQeCGvT55WRPdg/edit#slide=id.g12253183485_0_985
+https://github.com/fdavalo/microseg/blob/main/Openshift%20Networking.pdf?raw=true
 
 https://www.redhat.com/files/summit/session-assets/2018/Network-security-for-apps-on-OpenShift.pdf
