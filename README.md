@@ -19,11 +19,13 @@
    Sur la version actuelle de RHACS, il y a déjà une gestion des network policy : 
    
      * capture et visualisation des flux (graphiquement + types de flux acceptés, ingress, interdits, filtres, etc ...)
-     
-     	[![Simulation]](acs-netpol-sim.png)]
+             
+        [![Graphes]](netpol-graph.png)]
      
      * import de network policy pour simulation 
-     
+
+     	[![Simulation]](acs-netpol-sim.png)]
+
      * génération de network policy
      
      * ajout possible d'une politique de vérification/application d'une network policy a minima dans un namespace
