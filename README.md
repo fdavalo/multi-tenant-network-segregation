@@ -56,12 +56,16 @@
    Ce modèle de segmentation fonctionne bien en bare metal, metal LB permettra une bascule des IP en mode L2 ou BGP pour garder la résilience.
     
    _Après avoir consulté l'ingénierie, ils n'ont pas à leur connaissance de limitation sur le nombre de routeurs shardés, la seule limitation reste le nombre de routes par routeur (max 1000)._
+   
+    [![Ingress IP](https://github.com/fdavalo/microseg/blob/main/ingress-ip.png?raw=true)](ingress-ip.png)
 
 ### Egress IP
 
    Au niveau des egress IP par namespace, il est possible de définir une ou plusieurs egress IP par namespace, pour permettre d'identifier les flux sortant d'un namespace à partir de leur egress IP et pour permettre de rattacher des politiques sur les firewall.
 
    As a cluster administrator, you can configure the OVN-Kubernetes Container Network Interface (CNI) cluster network provider to assign one or more egress IP addresses to a namespace
+   
+    [![Egress IPs](https://github.com/fdavalo/microseg/blob/main/egress-ips.png?raw=true)](egress-ips.png)
 
 ### slides en référence
 
