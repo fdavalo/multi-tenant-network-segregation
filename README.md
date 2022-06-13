@@ -20,7 +20,7 @@
    
      * capture et visualisation des flux (graphiquement + types de flux acceptés, ingress, interdits, filtres, etc ...)
              
-        [![Graphes]](netpol-graph.png)]
+        [![Graphes](netpol-graph.png)](netpol-graph.png)]
      
      * import de network policy pour simulation 
 
