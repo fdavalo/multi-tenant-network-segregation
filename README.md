@@ -17,21 +17,29 @@
 * Advanced Cluster Security (RHACS) :
  
    Sur la version actuelle de RHACS, il y a déjà une gestion des network policy : 
-   ** capture et visualisation des flux (graphiquement + types de flux acceptés, ingress, interdits, filtres, etc ...)
-   ** import de network policy pour simulation 
-   ** génération de network policy
-   ** ajout possible d'une politique de vérification/application d'une network policy a minima dans un namespace
+   
+     * capture et visualisation des flux (graphiquement + types de flux acceptés, ingress, interdits, filtres, etc ...)
+     
+     * import de network policy pour simulation 
+     
+     * génération de network policy
+     
+     * ajout possible d'une politique de vérification/application d'une network policy a minima dans un namespace
 
     `Kubernetes network policies are vital in helping to enable zero-trust networking within a cluster. They reduce the impact of network attacks by limiting the opportunity for lateral movement, whereas Kubernetes resources are not isolated by default. Many, if not most of our customers, find this technology to be challenging and often end up with misconfigured or missing network policies. RHACS 3.70 helps security teams take the first step by identifying missing network policies altogether.`
     
     More specifically, RHACS  can now identify all deployments that are not selected by any ingres  network policy in the namespace, and includes a system policy to trigger against such deployments.  
 
 
+* Cilium editor
+
     Il y a aussi un éditeur de network policy proposé par Cilium, qui nécessite l'import des flux réels collectés par hubble sur votre cluster, on retrouve les fonctionnalités de RHACS + Openshift.
     
     Je n'ai pas eu le temps de tester la collecte des flux via Hubble sur Openshift ou de reformater l'export de l'opérateur Network Observability au format hubble.
 
-    Sinon, il y a un important client Openshift mais qui a créé son propre référentiel de flux logiques et génère les network policy associées.
+* Gestion logique de la micro segmentation des applications
+
+    Sinon, il y a un important client Openshift mais qui a créé son propre référentiel de flux logiques et génère les network policy associées. (et autres éléments potentiels, ingress IP, egress IP, ....)
 
     Je regarde s'il existe un outil open source pour déclarer namespace et les flux associés.
 
