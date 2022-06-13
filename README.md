@@ -20,6 +20,8 @@
    
      * capture et visualisation des flux (graphiquement + types de flux acceptés, ingress, interdits, filtres, etc ...)
      
+     	[![Simulation]](acs-netpol-sim.png)]
+     
      * import de network policy pour simulation 
      
      * génération de network policy
