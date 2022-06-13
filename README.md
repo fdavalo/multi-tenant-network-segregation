@@ -20,11 +20,11 @@
    
      * capture et visualisation des flux (graphiquement + types de flux acceptés, ingress, interdits, filtres, etc ...)
              
-        [![Graphes](netpol-graph.png)](netpol-graph.png)]
+        [![Graphes](https://github.com/fdavalo/microseg/blob/main/acs-netpol-graph.png?raw=true)](netpol-graph.png)
      
      * import de network policy pour simulation 
 
-     	[![Simulation]](acs-netpol-sim.png)]
+     	[![Simulation](https://github.com/fdavalo/microseg/blob/main/acs-netpol-sim.png?raw=true)](acs-netpol-sim.png)
 
      * génération de network policy
      
