@@ -57,7 +57,7 @@
     
    _Après avoir consulté l'ingénierie, ils n'ont pas à leur connaissance de limitation sur le nombre de routeurs shardés, la seule limitation reste le nombre de routes par routeur (max 1000)._
    
-    [![Ingress IP](https://github.com/fdavalo/microseg/blob/main/ingress-ip.png?raw=true)](ingress-ip.png)
+[![Ingress IP](https://github.com/fdavalo/microseg/blob/main/ingress-ip.png?raw=true)](ingress-ip.png)
 
 ### Egress IP
 
@@ -65,7 +65,7 @@
 
    As a cluster administrator, you can configure the OVN-Kubernetes Container Network Interface (CNI) cluster network provider to assign one or more egress IP addresses to a namespace
    
-    [![Egress IPs](https://github.com/fdavalo/microseg/blob/main/egress-ips.png?raw=true)](egress-ips.png)
+[![Egress IPs](https://github.com/fdavalo/microseg/blob/main/egress-ips.png?raw=true)](egress-ips.png)
 
 ### slides en référence
 
