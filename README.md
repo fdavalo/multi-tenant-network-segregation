@@ -13,6 +13,8 @@
     Il y a aussi depuis la 4.10 en DevPreview, l'opérateur Network Observability qui permet (sur OVN) de collecter et visualiser (console + dashboard) les flux réseaux du cluster.  (The eBPF agent is not officially released yet, it is already provided as a preview.)
     
     En 4.11, cet opérateur passera en techPreview et utilisera eBPF pour collecter les flux et rendra l'opérateur indépendant du CNI installé.
+    
+    [![Observability](https://github.com/fdavalo/microseg/blob/main/network-observability.png?raw=true)](network-observability.png)
 
 * Advanced Cluster Security (RHACS) :
  
