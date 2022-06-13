@@ -45,20 +45,21 @@
 
 ### Ingress sharding / Ingress IP
 
-    Sinon, il y avait une question sur l'utilisation d'un routeur (shard) par namespace , utilisant une ingress IP (via un service géré par MetalLB) pour chaque routeur.
+   Sinon, il y avait une question sur l'utilisation d'un routeur (shard) par namespace , utilisant une ingress IP (via un service géré par MetalLB) pour chaque routeur.
  
-    Ce modèle de segmentation fonctionne bien en bare metal, metal LB permettra une bascule des IP en mode L2 ou BGP pour garder la résilience.
-    Après avoir consulté l'ingénierie, ils n'ont pas à leur connaissance de limitation sur le nombre de routeurs shardés, la seule limitation reste le nombre de routes par routeur (max 1000).
+   Ce modèle de segmentation fonctionne bien en bare metal, metal LB permettra une bascule des IP en mode L2 ou BGP pour garder la résilience.
+    
+   _Après avoir consulté l'ingénierie, ils n'ont pas à leur connaissance de limitation sur le nombre de routeurs shardés, la seule limitation reste le nombre de routes par routeur (max 1000)._
 
 ### Egress IP
 
-    Au niveau des egress IP par namespace, il est possible de définir une ou plusieurs egress IP par namespace, pour permettre d'identifier les flux sortant d'un namespace à partir de leur egress IP et pour permettre de rattacher des politiques sur les firewall.
+   Au niveau des egress IP par namespace, il est possible de définir une ou plusieurs egress IP par namespace, pour permettre d'identifier les flux sortant d'un namespace à partir de leur egress IP et pour permettre de rattacher des politiques sur les firewall.
 
-    As a cluster administrator, you can configure the OVN-Kubernetes Container Network Interface (CNI) cluster network provider to assign one or more egress IP addresses to a namespace
+   As a cluster administrator, you can configure the OVN-Kubernetes Container Network Interface (CNI) cluster network provider to assign one or more egress IP addresses to a namespace
 
 ### slides en référence
 
-    Pour finir, je vous joins un certain nombre de slides qui donnent plus de précisions sur les fonctionnalités des CNI dans Openshift.
+   Pour finir, je vous joins un certain nombre de slides qui donnent plus de précisions sur les fonctionnalités des CNI dans Openshift.
 
 https://docs.google.com/presentation/d/11LHKQE7y8h5eXWpITmdHUqPxJv-SMjQeCGvT55WRPdg/edit#slide=id.g12253183485_0_985
 
