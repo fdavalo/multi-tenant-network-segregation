@@ -71,6 +71,8 @@
 
    Pour finir, je vous joins un certain nombre de slides qui donnent plus de précisions sur les fonctionnalités des CNI dans Openshift.
 
-https://github.com/fdavalo/microseg/blob/main/Openshift%20Networking.pdf?raw=true
+Openshift Networking: https://github.com/fdavalo/microseg/blob/main/Openshift%20Networking.pdf?raw=true
 
-https://www.redhat.com/files/summit/session-assets/2018/Network-security-for-apps-on-OpenShift.pdf
+Network security for apps on Openshift : https://www.redhat.com/files/summit/session-assets/2018/Network-security-for-apps-on-OpenShift.pdf
+
+An Implementation of Red Hat OpenShift Network Isolation Using Multiple Ingress Controllers : https://www.redbooks.ibm.com/redpapers/pdfs/redp5641.pdf
