@@ -2,7 +2,7 @@ apiVersion: operator.openshift.io/v1
 kind: IngressController
 metadata:
   name: tenant1085
-  namespace: tenant1085-ingress
+  namespace: openshift-ingress-operator
 spec:
   nodePlacement:
     nodeSelector:
@@ -19,7 +19,7 @@ spec:
     name: ''
   namespaceSelector:
     matchLabels:
-      kubernetes.io/metadata.name: tenant1085
+      tenant: tenant1085
   replicas: 1
   httpEmptyRequestsPolicy: Respond
   endpointPublishingStrategy:
