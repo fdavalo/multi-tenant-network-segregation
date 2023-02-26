@@ -4,6 +4,7 @@ metadata:
   name: multus-http
   namespace: tenant1085-ns1
 spec:
+  host: multus-http-tenant1085-ns1.tenant1085.ocp1.redhat.hpecic.net
   to:
     kind: Service
     name: multus-http
@@ -17,6 +18,7 @@ metadata:
   name: multus-http
   namespace: tenant1085-ns2
 spec:
+  host: multus-http-tenant1085-ns2.tenant1085.ocp1.redhat.hpecic.net
   to:
     kind: Service
     name: multus-http
