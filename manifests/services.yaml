@@ -1,0 +1,41 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: multus-http
+  namespace: tenant1085-ns1
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: multus-http
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: multus-http
+  namespace: tenant1085-ns2
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: multus-http
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: multus-http
+  namespace: tenant1081-ns1
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: multus-http
