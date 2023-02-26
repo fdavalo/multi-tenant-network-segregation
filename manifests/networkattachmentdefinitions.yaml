@@ -2,7 +2,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1085
-  namespace: gogs-helm
+  namespace: multus1
 spec:
   config: |-
     {
@@ -23,7 +23,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1081
-  namespace: gogs-helm
+  namespace: multus1
 spec:
   config: |-
     {
@@ -44,7 +44,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1085
-  namespace: gitea
+  namespace: multus2
 spec:
   config: |-
     {
@@ -65,7 +65,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1081
-  namespace: gitea
+  namespace: multus2
 spec:
   config: |-
     {
