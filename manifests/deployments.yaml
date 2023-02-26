@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: multus-http
-  namespace: multus1
+  namespace: tenant1085-ns1
   labels:
     app: multus-http
     app.kubernetes.io/instance: multus-http
@@ -26,12 +26,21 @@ spec:
               containerPort: 8080
               protocol: TCP
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
+          volumeMounts:
+            - name: www
+              mountPath: /var/www/html
         - name: cli
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
           command:
           - sh
           - '-c'
-          - tail -f /dev/null
+          - 'echo $HOSTNAME > /var/www/html/index.html; ip a >> /var/www/html/index.html; ip r >> /var/www/html/index.html; tail -f /dev/null'
+          volumeMounts:
+            - name: www
+              mountPath: /var/www/html
+      volumes:
+        - name: www
+          emptyDir: {}
       nodeSelector:
         kubernetes.io/hostname: ocp1-bm4nq-worker-wmpwz
 ---
@@ -39,7 +48,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: multus-http
-  namespace: multus2
+  namespace: tenant1085-ns2
   labels:
     app: multus-http
     app.kubernetes.io/instance: multus-http
@@ -63,11 +72,67 @@ spec:
               containerPort: 8080
               protocol: TCP
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
+          volumeMounts:
+            - name: www
+              mountPath: /var/www/html
         - name: cli
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
           command:
           - sh
           - '-c'
-          - tail -f /dev/null
+          - 'echo $HOSTNAME > /var/www/html/index.html; ip a >> /var/www/html/index.html; ip r >> /var/www/html/index.html; tail -f /dev/null'
+          volumeMounts:
+            - name: www
+              mountPath: /var/www/html
+      volumes:
+        - name: www
+          emptyDir: {}
+      nodeSelector:
+        kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn
+---
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: multus-http
+  namespace: tenant1081-ns1
+  labels:
+    app: multus-http
+    app.kubernetes.io/instance: multus-http
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multus-http
+  template:
+    metadata:
+      name: multus-http
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[{ "name": "ipvlan-1081", "default-route": ["10.6.81.1"]} ]'
+      labels:
+        app: multus-http
+    spec:
+      containers:
+        - name: httpd
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
+          volumeMounts:
+            - name: www
+              mountPath: /var/www/html
+        - name: cli
+          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
+          command:
+          - sh
+          - '-c'
+          - 'echo $HOSTNAME > /var/www/html/index.html; ip a >> /var/www/html/index.html; ip r >> /var/www/html/index.html; tail -f /dev/null'
+          volumeMounts:
+            - name: www
+              mountPath: /var/www/html
+      volumes:
+        - name: www
+          emptyDir: {}
       nodeSelector:
         kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn
