@@ -44,8 +44,6 @@ spec:
       - description: VLAN 1081 using ens224
         ipv4:
           address:
-            - ip: 10.6.81.198
-              prefix-length: 24
             - ip: 10.6.81.197
               prefix-length: 24
           dhcp: false
@@ -59,8 +57,6 @@ spec:
       - description: VLAN 1085 using ens224
         ipv4:
           address:
-            - ip: 10.6.85.198
-              prefix-length: 24
             - ip: 10.6.85.197
               prefix-length: 24
           dhcp: false
