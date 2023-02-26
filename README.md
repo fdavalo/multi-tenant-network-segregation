@@ -37,3 +37,13 @@ Implementation
 
  * See manifests directory with kubernetes objects configuration
  * See notes.md for more specific implementations
+
+Schemas
+
+[![Schema 1](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow1.png?raw=true)](tenant-seg-flow1.png)
+
+[![Schema 2](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow2.png?raw=true)](tenant-seg-flow2.png)
+
+Documentation
+
+ * See docs.md for more information on Network and Openshift
