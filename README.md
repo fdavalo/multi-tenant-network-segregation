@@ -1,4 +1,4 @@
-# micro segmentation on Openshift
+# multi-tenant network segregation on Openshift
 
 ## Example of tenant segregation by subnet and by namespaces
 
@@ -32,3 +32,8 @@ How we segregate egress flows
 How we segregate internal flows
 
  * **NetworkPolicies** can secure inter-namespaces flows
+
+Implementation
+
+ * See manifests directory with kubernetes objects configuration
+ * See notes.md for more specific implementations
