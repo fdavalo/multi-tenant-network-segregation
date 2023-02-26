@@ -68,4 +68,32 @@ spec:
   type: LoadBalancer
   selector:
     ingresscontroller.operator.openshift.io/deployment-ingresscontroller: tenant1085
-
+---
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    traffic-policy.network.alpha.openshift.io/local-with-fallback: ''
+  name: router-tenant1081
+  namespace: openshift-ingress
+  labels:
+    app: router
+    ingresscontroller.operator.openshift.io/owning-ingresscontroller: tenant1081
+    router: router-tenant1081
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: https
+  externalIPs:
+    - 10.6.81.196
+    - 10.6.81.197
+  allocateLoadBalancerNodePorts: false
+  type: LoadBalancer
+  selector:
+    ingresscontroller.operator.openshift.io/deployment-ingresscontroller: tenant1081
