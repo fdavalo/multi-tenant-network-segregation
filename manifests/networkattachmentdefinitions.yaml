@@ -2,7 +2,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1085
-  namespace: multus1
+  namespace: tenant1085-ns1
 spec:
   config: |-
     {
@@ -16,27 +16,6 @@ spec:
           "range": "10.6.85.0/24",
           "range_start": "10.6.85.221",
           "range_end": "10.6.85.230"
-      }
-    }
----
-apiVersion: k8s.cni.cncf.io/v1
-kind: NetworkAttachmentDefinition
-metadata:
-  name: ipvlan-1081
-  namespace: multus1
-spec:
-  config: |-
-    {
-      "cniVersion": "0.3.1",
-      "name": "ipvlan-1081",
-      "type": "ipvlan",
-      "master": "ens224.1081",
-      "mode": "l2",
-      "ipam": {
-          "type": "whereabouts",
-          "range": "10.6.81.0/24",
-          "range_start": "10.6.81.221",
-          "range_end": "10.6.81.230"
       }
     }
 ---
@@ -44,7 +23,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1085
-  namespace: multus2
+  namespace: tenant1085-ns2
 spec:
   config: |-
     {
@@ -65,7 +44,7 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: ipvlan-1081
-  namespace: multus2
+  namespace: tenant1081-ns1
 spec:
   config: |-
     {
