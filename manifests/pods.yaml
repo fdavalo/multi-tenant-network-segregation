@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   annotations:
-    k8s.v1.cni.cncf.io/networks: '[{ "name": "ipvlan-1085" }]'
+    k8s.v1.cni.cncf.io/networks: '[{ "name": "ipvlan-1085", "default-route": ["10.6.85.1"]}]'
   name: pod-1085
   namespace: gogs-helm
 spec:
