@@ -28,6 +28,15 @@ spec:
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
           volumeMounts:
             - name: www
+              mountPath: /var/www/html          
+        - name: cli
+          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
+          command:
+          - sh
+          - '-c'
+          - 'echo $POD_NAMESPACE:$HOSTNAME:$NODE_NAME:$NODE_IP > /var/www/html/index.txt; echo "---------------" >> /var/www/html/index.txt; ip a >> /var/www/html/index.txt; echo "---------------" >> /var/www/html/index.txt; ip r >> /var/www/html/index.txt; tail -f /dev/null'
+          volumeMounts:
+            - name: www
               mountPath: /var/www/html
           env:
             - name: NODE_NAME
@@ -41,16 +50,7 @@ spec:
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.namespace              
-        - name: cli
-          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
-          command:
-          - sh
-          - '-c'
-          - 'echo $POD_NAMESPACE:$HOSTNAME:$NODE_NAME($NODE_IP) > /var/www/html/index.html; ip a >> /var/www/html/index.html; ip r >> /var/www/html/index.html; tail -f /dev/null'
-          volumeMounts:
-            - name: www
-              mountPath: /var/www/html
+                  fieldPath: metadata.namespace
       volumes:
         - name: www
           emptyDir: {}
@@ -87,6 +87,15 @@ spec:
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
           volumeMounts:
             - name: www
+              mountPath: /var/www/html          
+        - name: cli
+          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
+          command:
+          - sh
+          - '-c'
+          - 'echo $POD_NAMESPACE:$HOSTNAME:$NODE_NAME:$NODE_IP > /var/www/html/index.txt; echo "---------------" >> /var/www/html/index.txt; ip a >> /var/www/html/index.txt; echo "---------------" >> /var/www/html/index.txt; ip r >> /var/www/html/index.txt; tail -f /dev/null'
+          volumeMounts:
+            - name: www
               mountPath: /var/www/html
           env:
             - name: NODE_NAME
@@ -101,21 +110,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace              
-        - name: cli
-          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
-          command:
-          - sh
-          - '-c'
-          - 'echo $POD_NAMESPACE:$HOSTNAME:$NODE_NAME($NODE_IP) > /var/www/html/index.html; ip a >> /var/www/html/index.html; ip r >> /var/www/html/index.html; tail -f /dev/null'
-          volumeMounts:
-            - name: www
-              mountPath: /var/www/html
       volumes:
         - name: www
           emptyDir: {}
       nodeSelector:
         kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn
----
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -147,6 +146,15 @@ spec:
           image: 'image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest'
           volumeMounts:
             - name: www
+              mountPath: /var/www/html           
+        - name: cli
+          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
+          command:
+          - sh
+          - '-c'
+          - 'echo $POD_NAMESPACE:$HOSTNAME:$NODE_NAME:$NODE_IP > /var/www/html/index.txt; echo "---------------" >> /var/www/html/index.txt; ip a >> /var/www/html/index.txt; echo "---------------" >> /var/www/html/index.txt; ip r >> /var/www/html/index.txt; tail -f /dev/null'
+          volumeMounts:
+            - name: www
               mountPath: /var/www/html
           env:
             - name: NODE_NAME
@@ -160,16 +168,7 @@ spec:
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.namespace              
-        - name: cli
-          image: 'image-registry.openshift-image-registry.svc:5000/openshift/cli:latest'
-          command:
-          - sh
-          - '-c'
-          - 'echo $POD_NAMESPACE:$HOSTNAME:$NODE_NAME($NODE_IP) > /var/www/html/index.html; ip a >> /var/www/html/index.html; ip r >> /var/www/html/index.html; tail -f /dev/null'
-          volumeMounts:
-            - name: www
-              mountPath: /var/www/html
+                  fieldPath: metadata.namespace
       volumes:
         - name: www
           emptyDir: {}
