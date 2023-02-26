@@ -1,0 +1,20 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tenant1085-ns1
+  labels:
+    tenant: tenant1085
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tenant1085-ns2
+  labels:
+    tenant: tenant1085
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tenant1081-ns1
+  labels:
+    tenant: tenant1081
