@@ -8,7 +8,7 @@ spec:
     nodeSelector:
       matchLabels:
         node-role.kubernetes.io/worker: ''
-  domain: tenant1085.sno-hpecic.redhat.hpecic.net
+  domain: tenant1085.ocp1.redhat.hpecic.net
   tuningOptions: {}
   clientTLS:
     clientCA:
