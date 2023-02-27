@@ -129,3 +129,63 @@ spec:
           id: 1085
   nodeSelector:
     kubernetes.io/hostname: ocp1-bm4nq-worker-pfm2z
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: vlan-ens224-worker-djzmm-policy
+spec:
+  desiredState:
+    interfaces:
+      - description: VLAN 1081 using ens224
+        ipv4:
+          dhcp: false
+          enabled: true
+        name: ens224.1081
+        state: up
+        type: vlan
+        vlan:
+          base-iface: ens224
+          id: 1081
+      - description: VLAN 1085 using ens224
+        ipv4:
+          dhcp: false
+          enabled: true
+        name: ens224.1085
+        state: up
+        type: vlan
+        vlan:
+          base-iface: ens224
+          id: 1085
+  nodeSelector:
+    kubernetes.io/hostname: ocp1-bm4nq-worker-djzmm
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: vlan-ens224-worker-fmx67-policy
+spec:
+  desiredState:
+    interfaces:
+      - description: VLAN 1081 using ens224
+        ipv4:
+          dhcp: false
+          enabled: true
+        name: ens224.1081
+        state: up
+        type: vlan
+        vlan:
+          base-iface: ens224
+          id: 1081
+      - description: VLAN 1085 using ens224
+        ipv4:
+          dhcp: false
+          enabled: true
+        name: ens224.1085
+        state: up
+        type: vlan
+        vlan:
+          base-iface: ens224
+          id: 1085
+  nodeSelector:
+    kubernetes.io/hostname: ocp1-bm4nq-worker-fmx67
