@@ -80,7 +80,7 @@ spec:
       - description: VLAN 1081 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1081
         state: up
         type: vlan
@@ -90,7 +90,7 @@ spec:
       - description: VLAN 1085 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1085
         state: up
         type: vlan
@@ -110,7 +110,7 @@ spec:
       - description: VLAN 1081 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1081
         state: up
         type: vlan
@@ -120,7 +120,7 @@ spec:
       - description: VLAN 1085 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1085
         state: up
         type: vlan
@@ -140,7 +140,7 @@ spec:
       - description: VLAN 1081 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1081
         state: up
         type: vlan
@@ -150,7 +150,7 @@ spec:
       - description: VLAN 1085 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1085
         state: up
         type: vlan
@@ -170,7 +170,7 @@ spec:
       - description: VLAN 1081 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1081
         state: up
         type: vlan
@@ -180,7 +180,7 @@ spec:
       - description: VLAN 1085 using ens224
         ipv4:
           dhcp: false
-          enabled: true
+          enabled: false
         name: ens224.1085
         state: up
         type: vlan
