@@ -54,8 +54,6 @@ spec:
       volumes:
         - name: www
           emptyDir: {}
-      nodeSelector:
-        kubernetes.io/hostname: ocp1-bm4nq-worker-wmpwz
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -113,8 +111,6 @@ spec:
       volumes:
         - name: www
           emptyDir: {}
-      nodeSelector:
-        kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -172,5 +168,3 @@ spec:
       volumes:
         - name: www
           emptyDir: {}
-      nodeSelector:
-        kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn
