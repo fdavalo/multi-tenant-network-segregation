@@ -94,7 +94,7 @@ How we segregate ingress flows
             metadata:
               name: tenant1085-ns1
               labels:
-                **tenant: tenant1085**
+                tenant: tenant1085
 
  * Modify the default ingress controller, not to watch routes from tenant namespaces  
     
@@ -114,12 +114,47 @@ How we segregate ingress flows
 
 How we segregate egress flows
 
- * Each deployment that need egress flows have to add a multus annotation to use the tenant subnet and the tenant default gateway
  * A **NetworkAttachementDefinition** is created to enable inserting a tenant interface on pods
    * we use here ipvlan (macvlan needs vsphere portgroup configuration) and dhcpd is handled in openshift with whereabouts service
    * we could use macvlan instead and use DHCP from the network
+
+              apiVersion: k8s.cni.cncf.io/v1
+              kind: NetworkAttachmentDefinition
+              metadata:
+                name: ipvlan-1085
+                namespace: tenant1085-ns1
+              spec:
+                config: |-
+                  {
+                    "cniVersion": "0.3.1",
+                    "name": "ipvlan-1085",
+                    "type": "ipvlan",
+                    "master": "ens224.1085",
+                    "mode": "l2",
+                    "ipam": {
+                        "type": "whereabouts",
+                        "range": "10.6.85.0/24",
+                        "range_start": "10.6.85.221",
+                        "range_end": "10.6.85.230"
+                    }
+                  }
+
+ * Each deployment that need egress flows have to add a multus annotation to use the tenant subnet and the tenant default gateway
+
+              kind: Deployment
+              apiVersion: apps/v1
+              metadata:
+                ...
+              spec:
+                ...
+                template:
+                  metadata:
+                    annotations:
+                      k8s.v1.cni.cncf.io/networks: '[{ "name": "ipvlan-1085", "default-route": ["10.6.85.1"]} ]'
+
+
  * External flows will go thru the tenant default gateway, the flows will originate from a tenant subnet IP (ex: 10.6.85.221, pod IP)
-   * those flows will then secured using traditional firewalls, if needed
+   * those flows will then be secured using traditional firewalls, if needed
 
 How we segregate internal flows
 
