@@ -7,6 +7,11 @@ The goal here is to segregate at maximum between tenant
  * Specific subnet for each tenant
    * 10.6.85.0/24 = tenant1085
    * 10.6.81.0/24 = tenant1081
+   
+ * Dedicated namespaces to specific tenants
+ 
+ [![namespaces](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-ns.png?raw=true)](tenant-ns.png)
+ 
  * We use a **NodeNetworkConfigurationPolicy** object to add a tagged vlan from the trunked secondary interfaces in the cluster nodes
    we can also add specific tenant IPs for some nodes and use those IPs as external ingress IPs (see next chapter)
 
