@@ -9,8 +9,8 @@ The goal here is to segregate at maximum between tenant
    * 10.6.81.0/24 = tenant1081
    
  * Dedicated namespaces to specific tenants
-   * tenan1085-ns1 and tenant1085-ns2 will host workload for this tenant
-   * tenant1081-ns1 host workload for this tenant
+   * tenan1085-ns1 and tenant1085-ns2 will host workload for tenant 1085
+   * tenant1081-ns1 host workload for tenant 1081
  
  [![namespaces](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-ns.png?raw=true)](tenant-ns.png)
  
@@ -66,13 +66,51 @@ The goal here is to segregate at maximum between tenant
     
 How we segregate ingress flows
 
- * Specific ingresscontroller by tenant
+ * A specific ingresscontroller by tenant
+
+              apiVersion: operator.openshift.io/v1
+              kind: IngressController
+              metadata:
+                name: tenant1085
+                namespace: openshift-ingress-operator
+              spec:
+                ...
+                domain: tenant1085.ocp1.redhat.hpecic.net
+                ...
+                namespaceSelector:
+                  matchLabels:
+                    tenant: tenant1085
+                replicas: 1
+                ...
+                endpointPublishingStrategy:
+                  loadBalancer:
+                    scope: External
+                  type: LoadBalancerService
+                  
+ * Each tenant ingress servers only routes from tenant namespaces (using label **tenant** in namespaces)
+
+            kind: Namespace
+            apiVersion: v1
+            metadata:
+              name: tenant1085-ns1
+              labels:
+                **tenant: tenant1085**
+
+ * Modify the default ingress controller, not to watch routes from tenant namespaces  
+    
+                 namespaceSelector:
+                   matchExpressions:
+                     - key: tenant
+                       operator: NotIn
+                       values:
+                         - tenant1085
+                         - tenant1081    
+    
  * A dedicated VIP for each tenant subnet to access the tenant ingress pods
    * VIP 10.6.85.10:80 for tenant1085 (haproxy) loadbalances to 10.6.85.196:80 and 10.6.85.197:80
      10.6.85.196 and 10.6.85.197 are external IPs for the LoadBalancer service that targets the tenant ingress pods  
    * VIP 10.6.81.10:80 for tenant1081 (haproxy) loadbalances to 10.6.81.196:80 and 10.6.81.197:80
      10.6.81.196 and 10.6.81.197 are external IPs for the LoadBalancer service that targets the tenant ingress pods
- * Each tenant ingress servers only routes from tenant namespaces (using label **tenant** in namespaces)
 
 How we segregate egress flows
 
