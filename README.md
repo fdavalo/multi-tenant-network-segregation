@@ -1,5 +1,13 @@
 # multi-tenant network segregation on Openshift
 
+## What we want to implement
+
+Schemas
+
+[![Schema 1](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow3.png?raw=true)](tenant-seg-flow3.png)
+
+[![Schema 2](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow1.png?raw=true)](tenant-seg-flow1.png)
+
 ## Example of tenant segregation by subnet and by namespaces
 
 The goal here is to segregate at maximum between tenant
@@ -164,12 +172,6 @@ Implementation
 
  * See manifests directory with kubernetes objects configuration
  * See notes.md for more specific implementations
-
-Schemas
-
-[![Schema 1](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow3.png?raw=true)](tenant-seg-flow3.png)
-
-[![Schema 2](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow1.png?raw=true)](tenant-seg-flow1.png)
 
 Documentation
 
