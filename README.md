@@ -9,12 +9,61 @@ The goal here is to segregate at maximum between tenant
    * 10.6.81.0/24 = tenant1081
    
  * Dedicated namespaces to specific tenants
+   * tenan1085-ns1 and tenant1085-ns2 will host workload for this tenant
+   * tenant1081-ns1 host workload for this tenant
  
  [![namespaces](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-ns.png?raw=true)](tenant-ns.png)
  
  * We use a **NodeNetworkConfigurationPolicy** object to add a tagged vlan from the trunked secondary interfaces in the cluster nodes
    we can also add specific tenant IPs for some nodes and use those IPs as external ingress IPs (see next chapter)
+   
+   * nodes with a specific IP by tenant provisioned 
+   
+        apiVersion: nmstate.io/v1
+        kind: NodeNetworkConfigurationPolicy
+        metadata:
+          name: vlan-ens224-worker-zqffn-policy
+        spec:
+          desiredState:
+            interfaces:
+              - description: VLAN 1085 using ens224
+                ipv4:
+                  address:
+                    - ip: 10.6.85.197
+                      prefix-length: 24
+                  dhcp: false
+                  enabled: true
+                name: ens224.1085
+                state: up
+                type: vlan
+                vlan:
+                  base-iface: ens224
+                  id: 1085
+          nodeSelector:
+            kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn   
+   
+   * nodes without a specific IP by tenant
 
+        apiVersion: nmstate.io/v1
+        kind: NodeNetworkConfigurationPolicy
+        metadata:
+          name: vlan-ens224-worker-vqsrj-policy
+        spec:
+          desiredState:
+            interfaces:
+              - description: VLAN 1085 using ens224
+                ipv4:
+                  dhcp: false
+                  enabled: false
+                name: ens224.1085
+                state: up
+                type: vlan
+                vlan:
+                  base-iface: ens224
+                  id: 1085
+          nodeSelector:
+            kubernetes.io/hostname: ocp1-bm4nq-worker-vqsrj
+    
 How we segregate ingress flows
 
  * Specific ingresscontroller by tenant
