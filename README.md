@@ -19,50 +19,50 @@ The goal here is to segregate at maximum between tenant
    
    * nodes with a specific IP by tenant provisioned 
    
-        apiVersion: nmstate.io/v1
-        kind: NodeNetworkConfigurationPolicy
-        metadata:
-          name: vlan-ens224-worker-zqffn-policy
-        spec:
-          desiredState:
-            interfaces:
-              - description: VLAN 1085 using ens224
-                ipv4:
-                  address:
-                    - ip: 10.6.85.197
-                      prefix-length: 24
-                  dhcp: false
-                  enabled: true
-                name: ens224.1085
-                state: up
-                type: vlan
-                vlan:
-                  base-iface: ens224
-                  id: 1085
-          nodeSelector:
-            kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn   
+            apiVersion: nmstate.io/v1
+            kind: NodeNetworkConfigurationPolicy
+            metadata:
+              name: vlan-ens224-worker-zqffn-policy
+            spec:
+              desiredState:
+                interfaces:
+                  - description: VLAN 1085 using ens224
+                    ipv4:
+                      address:
+                        - ip: 10.6.85.197
+                          prefix-length: 24
+                      dhcp: false
+                      enabled: true
+                    name: ens224.1085
+                    state: up
+                    type: vlan
+                    vlan:
+                      base-iface: ens224
+                      id: 1085
+              nodeSelector:
+                kubernetes.io/hostname: ocp1-bm4nq-worker-zqffn   
    
    * nodes without a specific IP by tenant
 
-        apiVersion: nmstate.io/v1
-        kind: NodeNetworkConfigurationPolicy
-        metadata:
-          name: vlan-ens224-worker-vqsrj-policy
-        spec:
-          desiredState:
-            interfaces:
-              - description: VLAN 1085 using ens224
-                ipv4:
-                  dhcp: false
-                  enabled: false
-                name: ens224.1085
-                state: up
-                type: vlan
-                vlan:
-                  base-iface: ens224
-                  id: 1085
-          nodeSelector:
-            kubernetes.io/hostname: ocp1-bm4nq-worker-vqsrj
+            apiVersion: nmstate.io/v1
+            kind: NodeNetworkConfigurationPolicy
+            metadata:
+              name: vlan-ens224-worker-vqsrj-policy
+            spec:
+              desiredState:
+                interfaces:
+                  - description: VLAN 1085 using ens224
+                    ipv4:
+                      dhcp: false
+                      enabled: false
+                    name: ens224.1085
+                    state: up
+                    type: vlan
+                    vlan:
+                      base-iface: ens224
+                      id: 1085
+              nodeSelector:
+                kubernetes.io/hostname: ocp1-bm4nq-worker-vqsrj
     
 How we segregate ingress flows
 
