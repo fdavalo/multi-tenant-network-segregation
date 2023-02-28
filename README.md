@@ -167,9 +167,9 @@ Implementation
 
 Schemas
 
-[![Schema 1](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow1.png?raw=true)](tenant-seg-flow1.png)
+[![Schema 1](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow1.png?raw=true)](tenant-seg-flow3.png)
 
-[![Schema 2](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow2.png?raw=true)](tenant-seg-flow2.png)
+[![Schema 2](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/tenant-seg-flow2.png?raw=true)](tenant-seg-flow1.png)
 
 Documentation
 
