@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-inbound-policy
+  namespace: tenan1085-ns1
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            ingresscontroller.operator.openshift.io/deployment-ingresscontroller: tenant1085
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-ingress
+      - namespaceSelector:
+          matchLabels:
+            tenant: tenant1085
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-inbound-policy
+  namespace: tenan1085-ns2
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            ingresscontroller.operator.openshift.io/deployment-ingresscontroller: tenant1085
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-ingress
+      - namespaceSelector:
+          matchLabels:
+            tenant: tenant1085
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-inbound-policy
+  namespace: tenan1081-ns1
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            ingresscontroller.operator.openshift.io/deployment-ingresscontroller: tenant1081
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-ingress
+      - namespaceSelector:
+          matchLabels:
+            tenant: tenant1081
