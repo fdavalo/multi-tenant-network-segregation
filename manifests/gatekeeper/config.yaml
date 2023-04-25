@@ -1,0 +1,20 @@
+apiVersion: config.gatekeeper.sh/v1alpha1
+kind: Config
+metadata:
+  name: config
+  namespace: openshift-gatekeeper-system
+spec:
+  sync:
+    syncOnly:
+      - group: ''
+        kind: Namespace
+        version: v1
+      - group: networking.k8s.io
+        kind: NetworkPolicy
+        version: v1
+  validation:
+    traces:
+      - dump: ALL
+        kind:
+          kind: Pod
+        user: 'na-kube:admin'
