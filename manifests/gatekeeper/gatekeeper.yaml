@@ -1,0 +1,31 @@
+apiVersion: operator.gatekeeper.sh/v1alpha1
+kind: Gatekeeper
+metadata:
+  name: gatekeeper
+spec:
+  audit:
+    auditChunkSize: 66
+    auditFromCache: Enabled
+    auditInterval: 10s
+    constraintViolationLimit: 55
+    emitAuditEvents: Enabled
+    logLevel: INFO
+    replicas: 1
+    resources:
+      limits:
+        cpu: 10
+        memory: 20Gi
+      requests:
+        cpu: 100m
+        memory: 20Mi
+  mutatingWebhook: Disabled
+  validatingWebhook: Enabled
+  webhook:
+    emitAdmissionEvents: Enabled
+    failurePolicy: Fail
+    logLevel: INFO
+    namespaceSelector:
+      matchExpressions:
+        - key: tenant
+          operator: Exists
+    replicas: 3
