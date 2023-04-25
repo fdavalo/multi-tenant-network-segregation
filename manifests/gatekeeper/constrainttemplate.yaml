@@ -1,0 +1,67 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: tenantpolicy
+spec:
+  crd:
+    spec:
+      names:
+        kind: TenantPolicy
+  targets:
+    - rego: |
+        package tenantpolicy
+
+        #block pod creation when a single network policy has not been set
+        #restricted to namespace tenant* for now
+        violation[{"msg": msg}] {
+            input.review.kind.kind == "Pod"
+            input.review.operation == "CREATE"
+            startswith(input.review.namespace, "tenant")
+            namespace := input.review.namespace
+            networkpolicies := [o | o = data.inventory.namespace[namespace][_]["NetworkPolicy"][_] ]
+            count(networkpolicies) != 1
+            reason := "it is missing an associated Network Security Policy"
+            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+        }
+
+        #block pod creation when the tenant network policy has not been set
+        #the tenant network policy will be forced by a mutating wehook
+        #restricted to namespace tenant* for now
+        violation[{"msg": msg}] {
+            input.review.kind.kind == "Pod"
+            input.review.operation == "CREATE"
+            startswith(input.review.namespace, "tenant")
+            namespace := input.review.namespace
+            networkpolicies := [o | o = data.inventory.namespace[namespace][_]["NetworkPolicy"]["tenant"] ]
+            count(networkpolicies) != 1
+            reason := "it is missing the tenant Network Security Policy"
+            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+        }
+
+        #block the update of the label tenant in a namespace
+        #policy to discuss
+        violation[{"msg": msg}] {
+            input.review.kind.kind == "Namespace"
+            input.review.operation == "UPDATE"
+            startswith(input.review.namespace, "tenant")
+            label := input.review.object.metadata.labels["tenant"]
+            oldLabel := input.review.oldObject.metadata.labels["tenant"]
+            label != oldLabel
+            reason := "you cannot change the tenant of the namespace"
+            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+        }  
+
+        #block the update of the tenant policy if not compliant
+        violation[{"msg": msg}] {
+            input.review.kind.kind == "NetworkPolicy"
+            input.review.operation == "CREATE"
+            startswith(input.review.namespace, "tenant")
+            spec := input.review.object.spec
+            namespace := input.review.namespace
+            tenant := data.inventory.cluster["v1"].Namespace[namespace]["metadata"]["labels"]["tenant"]
+            specref := {"ingress": [{"from": [{"podSelector": {"matchLabels":{"ingresscontroller.operator.openshift.io/deployment-ingresscontroller":tenant}}}, {"namespaceSelector": {"matchLabels": {"tenant":tenant}}}]}], "podSelector": {}, "policyTypes": ["Ingress"]}
+            spec != specref
+            reason := "\"tenant\" network policy is not compliant"
+            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+        }
+      target: admission.k8s.gatekeeper.sh
