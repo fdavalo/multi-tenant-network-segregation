@@ -11,19 +11,6 @@ spec:
     - rego: |
         package tenantpolicy
 
-        #block pod creation when a single network policy has not been set
-        #restricted to namespace tenant* for now
-        violation[{"msg": msg}] {
-            input.review.kind.kind == "Pod"
-            input.review.operation == "CREATE"
-            startswith(input.review.namespace, "tenant")
-            namespace := input.review.namespace
-            networkpolicies := [o | o = data.inventory.namespace[namespace][_]["NetworkPolicy"][_] ]
-            count(networkpolicies) != 1
-            reason := "it is missing an associated Network Security Policy"
-            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
-        }
-
         #block pod creation when the tenant network policy has not been set
         #the tenant network policy will be forced by a mutating wehook
         #restricted to namespace tenant* for now
@@ -64,4 +51,24 @@ spec:
             reason := "\"tenant\" network policy is not compliant"
             msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
         }
-      target: admission.k8s.gatekeeper.sh
+
+        #block the update of the tenant policy
+        violation[{"msg": msg}] {
+            input.review.kind.kind == "NetworkPolicy"
+            input.review.operation == "UPDATE"
+            startswith(input.review.namespace, "tenant")
+            input.review.name == "tenant"
+            reason := "\"tenant\" network policy cannot be updated"
+            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+        } 
+
+        #block the update of the tenant policy
+        violation[{"msg": msg}] {
+            input.review.kind.kind == "NetworkPolicy"
+            input.review.operation == "CREATE"
+            startswith(input.review.namespace, "tenant")
+            input.review.name != "tenant"
+            reason := "only \"tenant\" network policy cannot be created"
+            msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+        } 
+        target: admission.k8s.gatekeeper.sh
