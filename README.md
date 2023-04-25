@@ -176,3 +176,7 @@ Implementation
 Documentation
 
  * See docs.md for more information on Network and Openshift
+ 
+ * See gatekeeper.md for the details on how to set Network Policies and use GateKeeper to enforce it
+ 
+  [![namespaces](https://github.com/fdavalo/multi-tenant-network-segregation/blob/main/gatekeeper.md?raw=false)](gatekeeper.md)
