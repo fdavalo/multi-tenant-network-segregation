@@ -10,3 +10,7 @@ spec:
         kinds: ["Pod"]
       - apiGroups: ["networking.k8s.io"]
         kinds: ["NetworkPolicy"]
+    namespaceSelector:
+      matchExpressions:
+        - key: tenant
+          operator: Exists        
