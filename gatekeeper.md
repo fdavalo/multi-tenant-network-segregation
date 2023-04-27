@@ -64,7 +64,6 @@
               violation[{"msg": msg}] {
                   input.review.kind.kind == "Namespace"
                   input.review.operation == "UPDATE"
-                  startswith(input.review.namespace, "tenant")
                   label := input.review.object.metadata.labels["tenant"]
                   oldLabel := input.review.oldObject.metadata.labels["tenant"]
                   label != oldLabel
@@ -83,7 +82,6 @@
                 violation[{"msg": msg}] {
                     input.review.kind.kind == "NetworkPolicy"
                     input.review.operation == "CREATE"
-                    startswith(input.review.namespace, "tenant")
                     input.review.name == "tenant"
                     spec := input.review.object.spec
                     namespace := input.review.namespace
@@ -100,7 +98,6 @@
                 violation[{"msg": msg}] {
                     input.review.kind.kind == "NetworkPolicy"
                     input.review.operation == "CREATE"
-                    startswith(input.review.namespace, "tenant")
                     input.review.name != "tenant"
                     reason := "only \"tenant\" network policy can be created"
                     msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
@@ -123,7 +120,7 @@
    * The webhook will handle the namespaces that have the label "tenant" : see manifests/gatekeeper/gatekeeper.yaml
    * The kind **Pod** is allowed from manifests/gatekeeper/tenantpolicy.yaml
    * See deny rule in manifests/gatekeeper/constrainttemplate.yaml that checks **tenant** network policy has been created
-   * Access to network policies data in the namespace from the rule is allowed from inventory synchronization : see manifests/gatekeeper/cofig.yaml
+   * Access to network policies data in the namespace from the rule is allowed from inventory synchronization : see manifests/gatekeeper/config.yaml
 
                   #block pod creation when the tenant network policy has not been set
                   #the tenant network policy will be forced by a mutating wehook
@@ -131,10 +128,27 @@
                   violation[{"msg": msg}] {
                       input.review.kind.kind == "Pod"
                       input.review.operation == "CREATE"
-                      startswith(input.review.namespace, "tenant")
                       namespace := input.review.namespace
                       networkpolicies := [o | o = data.inventory.namespace[namespace][_]["NetworkPolicy"]["tenant"] ]
                       count(networkpolicies) != 1
                       reason := "it is missing the tenant Network Security Policy"
+                      msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
+                  }
+
+  * The pods can only be created if ony one network policy has been set in the namespace
+   * This will be done by a ValidatingWebHook : TenantPolicy 
+   * The webhook will handle the namespaces that have the label "tenant" : see manifests/gatekeeper/gatekeeper.yaml
+   * The kind **Pod** is allowed from manifests/gatekeeper/tenantpolicy.yaml
+   * See deny rule in manifests/gatekeeper/constrainttemplate.yaml that checks only one network policy has been created
+   * Access to network policies data in the namespace from the rule is allowed from inventory synchronization : see manifests/gatekeeper/config.yaml
+
+                  #blocks pod creation when only one network policy is set in the namespace
+                  violation[{"msg": msg}] {
+                      input.review.kind.kind == "Pod"
+                      input.review.operation == "CREATE"
+                      namespace := input.review.namespace
+                      networkpolicies := [o | o = data.inventory.namespace[namespace][_]["NetworkPolicy"][_] ]
+                      count(networkpolicies) != 1
+                      reason := "only the tenant network policy can be accepted in the namespace"
                       msg:= sprintf("Deny Operation %v for %v %v because %v.",[input.review.operation,input.review.kind.kind,input.review.object.metadata.name, reason])
                   }
