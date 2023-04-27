@@ -47,11 +47,6 @@
                 matchExpressions:
                   - key: tenant
                     operator: DoesNotExist
-                  - key: kubernetes.io/metadata.name
-                    operator: NotIn
-                    values:
-                      - openshift
-                      ...
 
  * The **tenant** label should not be modified or removed on the namespaces where it was set
    * This will be done by a ValidatingWebHook : TenantPolicy 
