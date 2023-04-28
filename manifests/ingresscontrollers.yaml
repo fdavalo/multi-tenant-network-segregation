@@ -23,9 +23,7 @@ spec:
   replicas: 1
   httpEmptyRequestsPolicy: Respond
   endpointPublishingStrategy:
-    loadBalancer:
-      scope: External
-    type: LoadBalancerService
+    type: Private
 ---
 apiVersion: operator.openshift.io/v1
 kind: IngressController
@@ -52,6 +50,4 @@ spec:
   replicas: 1
   httpEmptyRequestsPolicy: Respond
   endpointPublishingStrategy:
-    loadBalancer:
-      scope: External
-    type: LoadBalancerService
+    type: Private
